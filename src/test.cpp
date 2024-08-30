@@ -1,8 +1,9 @@
 #pragma once
 
-#include "test.h"
+#include "test.hpp"
 #include <stdio.h>
 
-void test() {
+int Test::test() {
   printf("Hello World!");
+  return 0;
 }

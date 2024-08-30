@@ -12,7 +12,10 @@ import Test
 struct exampleApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().onAppear {}
+            ContentView().onAppear {
+                Test()
+//                test.test()
+            }
         }
     }
 }
