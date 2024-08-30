@@ -1,0 +1,37 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.15)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+PROJECT(Test)
+
+set(SOURCES
+  src/test.c
+)
+
+set(HEADERS
+  include/test.h
+)
+
+add_library(Test SHARED ${HEADERS} ${SOURCES})
+
+target_include_directories(Test
+    PUBLIC
+        include
+    PRIVATE
+        src
+)
+
+set_target_properties(Test PROPERTIES
+  FRAMEWORK TRUE
+  FRAMEWORK_VERSION A
+  VERSION 1.0.0
+  SOVERSION 1.0.0
+  PUBLIC_HEADER "${HEADERS}"
+  XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "13.0"
+  XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym"
+)
+
+install(TARGETS Test
+  DESTINATION ${PROJECT_BINARY_DIR}/../Frameworks
+)
