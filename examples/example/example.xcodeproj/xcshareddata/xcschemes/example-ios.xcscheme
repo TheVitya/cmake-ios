@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1540"
+   LastUpgradeVersion = "1610"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "31B7D8D72C75521200773230"
-               BuildableName = "example-macos.app"
-               BlueprintName = "example-macos"
+               BlueprintIdentifier = "31D935462CE2912100D5630E"
+               BuildableName = "example-ios.app"
+               BlueprintName = "example-ios"
                ReferencedContainer = "container:example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,9 +44,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31B7D8D72C75521200773230"
-            BuildableName = "example-macos.app"
-            BlueprintName = "example-macos"
+            BlueprintIdentifier = "31D935462CE2912100D5630E"
+            BuildableName = "example-ios.app"
+            BlueprintName = "example-ios"
             ReferencedContainer = "container:example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,9 +61,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31B7D8D72C75521200773230"
-            BuildableName = "example-macos.app"
-            BlueprintName = "example-macos"
+            BlueprintIdentifier = "31D935462CE2912100D5630E"
+            BuildableName = "example-ios.app"
+            BlueprintName = "example-ios"
             ReferencedContainer = "container:example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

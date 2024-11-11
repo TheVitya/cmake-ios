@@ -13,8 +13,8 @@ struct exampleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView().onAppear {
-                Test()
-//                test.test()
+                var test = Test()
+                test.test()
             }
         }
     }

@@ -1,7 +1,9 @@
-platform :ios, '13'
+target 'example-ios' do
+  platform :ios, '13'
+  pod 'Test', :path => '../../Test.podspec'
+end
 
-target 'example' do
-  use_frameworks!
-
+target 'example-macos' do
+  platform :macos, '10.15'
   pod 'Test', :path => '../../Test.podspec'
 end

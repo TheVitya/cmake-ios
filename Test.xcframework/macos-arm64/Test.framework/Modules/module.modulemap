@@ -1,6 +1,0 @@
-framework module Test {
- umbrella header "test.hpp"
-
- export *
- module * { export * }
-}
