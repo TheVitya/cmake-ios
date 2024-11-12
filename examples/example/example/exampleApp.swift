@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
-import Test
+import AppCore
+import AppCoreFramework
 
 @main
 struct exampleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView().onAppear {
-                var test = Test()
-                test.test()
+                var app = AppCore()
+                app.initialize()
+                var swift = AppCoreSwift()
+                swift.test()
             }
         }
     }

@@ -1,0 +1,6 @@
+framework module AppCoreFramework {
+ umbrella header "AppCore.hpp"
+
+ export *
+ module * { export * }
+}

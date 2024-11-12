@@ -1,16 +1,16 @@
 PODS:
-  - Test (1.0.0)
+  - AppCore (1.0.0)
 
 DEPENDENCIES:
-  - Test (from `../../Test.podspec`)
+  - AppCore (from `../../packages/AppCore/AppCore.podspec`)
 
 EXTERNAL SOURCES:
-  Test:
-    :path: "../../Test.podspec"
+  AppCore:
+    :path: "../../packages/AppCore/AppCore.podspec"
 
 SPEC CHECKSUMS:
-  Test: c5fd1a8e05523c5fd7719d10f001f6a2a1706204
+  AppCore: 0cfdb403201394da1c06b7b6549426e419e65eb0
 
-PODFILE CHECKSUM: 66b75c52f8a8fea3e38eaa35cdaad354ed9500fb
+PODFILE CHECKSUM: f12578f867092581552199b3a152993bd48c77ed
 
 COCOAPODS: 1.16.2

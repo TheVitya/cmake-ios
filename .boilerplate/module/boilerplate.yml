@@ -1,0 +1,8 @@
+variables:
+  - name: ModuleName
+    description: Enter the name of the module
+    type: string
+
+  - name: FrameworkName
+    description: Enter the java package name
+    type: string

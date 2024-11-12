@@ -1,9 +1,9 @@
 target 'example-ios' do
   platform :ios, '13'
-  pod 'Test', :path => '../../Test.podspec'
+  pod 'AppCore', :path => '../../packages/AppCore/AppCore.podspec'
 end
 
 target 'example-macos' do
   platform :macos, '10.15'
-  pod 'Test', :path => '../../Test.podspec'
+  pod 'AppCore', :path => '../../packages/AppCore/AppCore.podspec'
 end
