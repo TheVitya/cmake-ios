@@ -12,6 +12,7 @@ ANDROID_PLATFORM="android-21"
 # Paths
 ANDROID_NDK="~/Library/Android/sdk/ndk/26.1.10909125/build/cmake"
 MODULEMAP_PATH="./module.modulemap"
+JNI_LIBS_PATH="./android/src/main/jniLibs"
 
 rm -rf build
 rm -rf "${FRAMEWORK_NAME}.xcframework"
@@ -39,11 +40,22 @@ copy_modules() {
 
 build_executable() {
     build_dir="build/executable"
-    cmake_args="-DCMAKE_BUILD_TYPE=Release -DBUILD_EXACUTABLE=ON -DMODULE_NAME=$FRAMEWORK_NAME"
+    cmake_args="-DCMAKE_BUILD_TYPE=Release \
+      -DBUILD_TARGET=EXECUTABLE \
+      -DMODULE_NAME=$FRAMEWORK_NAME"
 
     cmake -B $build_dir $cmake_args
     cmake --build $build_dir --config Release
 }
+
+# copy_android_libs() {
+#     build_dir=$1
+#     type=$2
+#     if [ -d "$build_dir" ]; then
+#         mkdir -p "$JNI_LIBS_PATH/$type"  # Example for arm64-v8a; repeat for other ABIs as needed
+#         cp -r "$build_dir"/*.so "$JNI_LIBS_PATH/$type/"
+#     fi
+# }
 
 # iPhoneSimulator
 sim_platform="iphonesimulator"
@@ -72,7 +84,6 @@ build_platform "build/$macos_platform" \
     -DMODULE_NAME=$FRAMEWORK_NAME \
     -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOS_DEPLOYMENT_TARGET \
     -DCMAKE_OSX_ARCHITECTURES=$(uname -m)"
-
 copy_modules "build/$macos_platform/Release"
 
 # Creating XCFramework
@@ -82,10 +93,24 @@ xcodebuild -create-xcframework \
   -framework build/${macos_platform}/Release/${FRAMEWORK_NAME}.framework \
   -output ${FRAMEWORK_NAME}.xcframework
 
-# Android
-build_platform "build/android" \
-    "-DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/android.toolchain.cmake \
-    -DANDROID_ABI=arm64-v8a \
-    -DANDROID_PLATFORM=$ANDROID_PLATFORM"
+# # Android
+# android_build_dir="build/android"
+# type=arm64-v8a
+# build_platform "$android_build_dir" \
+#     "-DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/android.toolchain.cmake \
+#     -DMODULE_NAME=$EXECUTABLE_NAME \
+#     -DANDROID_ABI=$type \
+#     -DANDROID_PLATFORM=$ANDROID_PLATFORM"
+# copy_android_libs "$android_build_dir" $type
+#
+# # Android
+# android_build_dir="build/android"
+# type=x86_64
+# build_platform "$android_build_dir" \
+#     "-DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/android.toolchain.cmake \
+#     -DMODULE_NAME=$EXECUTABLE_NAME \
+#     -DANDROID_ABI=$type \
+#     -DANDROID_PLATFORM=$ANDROID_PLATFORM"
+# copy_android_libs "$android_build_dir" $type
 
 build_executable

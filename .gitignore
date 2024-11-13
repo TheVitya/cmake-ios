@@ -2,4 +2,5 @@ build
 Pods
 *.xcframework
 .DS_Store
+.cxx
 # bin

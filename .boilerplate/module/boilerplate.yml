@@ -4,5 +4,9 @@ variables:
     type: string
 
   - name: FrameworkName
-    description: Enter the java package name
+    description: Enter the iOS framework name
+    type: string
+
+  - name: OrganizationName
+    description: Enter the android organization name
     type: string

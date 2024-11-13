@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Example"
 include ':app'
+include ':app-core'
+project(':app-core').projectDir = new File('../../packages/AppCore/android/')

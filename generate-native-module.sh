@@ -15,4 +15,5 @@ $BIN_PATH \
   --output-folder $ROOT_PATH/packages/${MODULE_NAME}/ \
   --non-interactive \
   --var ModuleName="$MODULE_NAME" \
+  --var OrganizationName="$MODULE_NAME" \
   --var FrameworkName="$FRAMEWORK_NAME"

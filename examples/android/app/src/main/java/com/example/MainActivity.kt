@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ui.theme.ExampleTheme
+import org.AppCore.AppCoreJava
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +21,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             ExampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    var e = AppCoreJava()
+                    e.test()
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
