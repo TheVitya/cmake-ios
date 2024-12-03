@@ -5,5 +5,6 @@ public class AppCoreJava {
         System.loadLibrary("AppCore");
     }
 
-    public native void test();
+    public native void test(String path);
+    public native void getVersion();
 }

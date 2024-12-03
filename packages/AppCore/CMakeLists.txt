@@ -1,8 +1,8 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 3.10.2)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.20.2)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_FOLDER "${CMAKE_CURRENT_LIST_DIR}/cmake")
+
+include("${CMAKE_FOLDER}/variables.cmake")
 
 option(MODULE_NAME "Name of the module" AppCore)
 option(BUILD_TARGET "The type of build" IOS) # EXECUTABLE, IOS, ANDROID
@@ -11,10 +11,16 @@ PROJECT("${MODULE_NAME}")
 
 set(SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/cpp/src/AppCore.cpp
+  # ${CMAKE_CURRENT_LIST_DIR}/cpp/src/AppCore/database/schemas/user.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/src/database/base.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/src/database/db.cpp
 )
 
 set(HEADERS
   ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/AppCore.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/schemas/user.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/base.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/db.hpp
 )
 
 add_library("${MODULE_NAME}" SHARED ${HEADERS} ${SOURCES})
@@ -25,6 +31,38 @@ target_include_directories("${MODULE_NAME}"
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/cpp/src
 )
+
+include(FetchContent)
+FetchContent_Declare(
+        mmkv
+        GIT_REPOSITORY https://github.com/Tencent/MMKV.git
+        GIT_TAG        v2.0.1
+)
+FetchContent_Declare(
+        cpprealm
+        GIT_REPOSITORY https://github.com/realm/realm-cpp.git
+        GIT_TAG        v2.2.0
+)
+FetchContent_Declare(
+        spdlog
+        GIT_REPOSITORY https://github.com/gabime/spdlog.git
+        GIT_TAG        v1.15.0
+)
+# FetchContent_Declare(
+#         cpr
+#         GIT_REPOSITORY https://github.com/libcpr/cpr.git
+#         GIT_TAG bb01c8db702fb41e5497aee9c0559ddf4bf13749
+# )
+
+FetchContent_GetProperties(mmkv)
+if(NOT mmkv_POPULATED)
+    FetchContent_Populate(mmkv)
+  add_subdirectory(${mmkv_SOURCE_DIR}/Core ${mmkv_BINARY_DIR}/Core)
+endif()
+
+FetchContent_MakeAvailable(spdlog cpprealm)
+
+target_link_libraries("${MODULE_NAME}" spdlog::spdlog cpprealm core)
 
 if(BUILD_TARGET STREQUAL "EXECUTABLE")
   include("${CMAKE_FOLDER}/executable.cmake")

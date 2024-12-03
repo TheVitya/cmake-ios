@@ -6,7 +6,7 @@
 class AppCore {
 public:
   // Constructor & Destructor
-  AppCore();
+  AppCore(const char* path);
   ~AppCore();
 
   // Initialization and shutdown methods
@@ -25,6 +25,7 @@ private:
   // Fields
   std::string appName;
   std::string version;
+  std::string system_path;
   bool isRunning;
 
   // Event list

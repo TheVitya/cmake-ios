@@ -21,8 +21,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             ExampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    var e = AppCoreJava()
-                    e.test()
+                    val path = getFilesDir().getAbsolutePath();
+                    val e = AppCoreJava()
+                    e.test(path)
+                    e.getVersion()
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)

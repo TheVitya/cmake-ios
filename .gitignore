@@ -3,4 +3,5 @@ Pods
 *.xcframework
 .DS_Store
 .cxx
+_deps
 # bin

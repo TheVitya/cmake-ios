@@ -1,8 +1,8 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.10.2)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_FOLDER "${CMAKE_CURRENT_LIST_DIR}/cmake")
+
+include("${CMAKE_FOLDER}/variables.cmake")
 
 option(MODULE_NAME "Name of the module" {{.ModuleName}})
 option(BUILD_TARGET "The type of build" IOS) # EXECUTABLE, IOS, ANDROID
@@ -25,6 +25,22 @@ target_include_directories("${MODULE_NAME}"
     PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/cpp/src
 )
+
+### DEPENDENCIES
+
+# include(FetchContent)
+#
+# FetchContent_Declare(
+#         cpprealm
+#         GIT_REPOSITORY https://github.com/realm/realm-cpp.git
+#         GIT_TAG        v2.2.0
+# )
+#
+# FetchContent_MakeAvailable(cpprealm)
+#
+# target_link_libraries("${MODULE_NAME}" cpprealm)
+
+###
 
 if(BUILD_TARGET STREQUAL "EXECUTABLE")
   include("${CMAKE_FOLDER}/executable.cmake")

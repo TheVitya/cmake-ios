@@ -3,7 +3,7 @@
 
 // Example usage
 int main() {
-    AppCore app;
+    AppCore app("./");
 
     if (app.initialize()) {
         std::cout << app.getAppName() << " version " << app.getVersion() << " is running." << std::endl;
