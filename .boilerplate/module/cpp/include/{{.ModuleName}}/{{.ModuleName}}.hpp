@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class {{.ModuleName}} {
 public:
   {{.ModuleName}}() = default;
