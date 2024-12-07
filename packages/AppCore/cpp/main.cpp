@@ -3,18 +3,9 @@
 
 // Example usage
 int main() {
-    AppCore app("./");
+    AppCore::initialize();
+    auto a = AppCore::instance();
 
-    if (app.initialize()) {
-        std::cout << app.getAppName() << " version " << app.getVersion() << " is running." << std::endl;
-
-        // Triggering events
-        app.onEvent("UserLoggedIn");
-        app.onEvent("SettingsChanged");
-
-        // Shutdown the application
-        app.shutdown();
-    }
 
     return 0;
 }

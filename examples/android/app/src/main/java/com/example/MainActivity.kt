@@ -22,9 +22,39 @@ class MainActivity : ComponentActivity() {
             ExampleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val path = getFilesDir().getAbsolutePath();
-                    val e = AppCoreJava()
-                    e.test(path)
-                    e.getVersion()
+                    val appCoreRef = AppCoreJava()
+                    appCoreRef.initialize(path)
+
+                    val floatValue: Float = 123f
+                    var _float = appCoreRef.setFloat("float", floatValue)
+                    _float = appCoreRef.getFloat("float", floatValue)
+                    println("float: $_float")
+
+                    var bool = appCoreRef.setBool("bool", true)
+                    bool = appCoreRef.getBool("bool", true)
+                    println("bool: $bool")
+
+                    var int32 = appCoreRef.setInt32("int32", -32)
+                    int32 = appCoreRef.getInt32("int32", -32)
+                    println("int32: $int32")
+
+                    var int64 = appCoreRef.setInt64("int64", -64L)
+                    int64 = appCoreRef.getInt64("int64", -64L)
+                    println("int64: $int64")
+
+                    var uint32 = appCoreRef.setUInt32("uint32", 32)
+                    uint32 = appCoreRef.getUInt32("uint32", 32)
+                    println("uint32: $uint32")
+
+                    var uint64 = appCoreRef.setUInt64("uint64", 64L)
+                    uint64 = appCoreRef.getUInt64("uint64", 64L)
+                    println("uint64: $uint64")
+
+                    var doubleValue = 1.00
+                    var _double = appCoreRef.setDouble("double", doubleValue)
+                    _double = appCoreRef.getDouble("double", doubleValue)
+                    println("double: $_double")
+
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)

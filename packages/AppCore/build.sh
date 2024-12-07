@@ -19,8 +19,6 @@ build_platform() {
     build_dir=$1
     cmake_args=$2
 
-    return
-
     cmake -B $build_dir $cmake_args \
       -DBUILD_TARGET=IOS \
       -DMODULE_NAME=$FRAMEWORK_NAME

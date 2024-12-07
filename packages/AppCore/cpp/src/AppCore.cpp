@@ -1,78 +1,82 @@
 #include "AppCore/AppCore.hpp"
 #include "AppCore/database/db.hpp"
+#include "AppCore/macros.hpp"
+#include "AppCore/database/schemas.hpp"
+#include "cpprealm/types.hpp"
 #include "spdlog/spdlog.h"
 #include <cpprealm/sdk.hpp>
-#include <iostream>
-// #include <cpr/cpr.h>
+#include <cstddef>
 
 #if defined(__ANDROID__)
 #include "spdlog/sinks/android_sink.h"
 #endif
 
-
-
-// Constructor
-AppCore::AppCore(const char* path) : appName("MyApp"), version("1.0"), isRunning(false), system_path(path) {
-  spdlog::info("AppCore Initializing...");
-
-#if defined(__ANDROID__)
-    std::string tag = "spdlog-android";
-    auto android_logger = spdlog::android_logger_mt("android", tag);
-    spdlog::set_default_logger(android_logger);
-#endif
-
-  spdlog::info("AppCore system_path: {}", system_path);
-
-  spdlog::info("AppCore Initialized");
-}
-
-// Destructor
-AppCore::~AppCore() {
-  spdlog::info("AppCore shutting down.");
-}
+std::shared_ptr<AppCore> AppCore::s_instance = nullptr;
+AppCoreConfig AppCore::CONFIG = core_default_config;
 
 // Initialization method
-bool AppCore::initialize() {
-  std::cout << "Initializing application..." << std::endl;
+void AppCore::initialize(AppCoreConfig config) {
+  spdlog::info("AppCore: initializing application...");
 
-  auto db = DB::instance(system_path);
+#if defined(__ANDROID__)
+  std::string tag = "spdlog-android";
+  auto android_logger = spdlog::android_logger_mt("android", tag);
+  spdlog::set_default_logger(android_logger);
+#endif
 
-  // auto realm = db.REALM.get();
-  // Use them like regular objects.
+  spdlog::info("AppCore: system_path: {}", config.system_path);
 
-  // spdlog::info("Welcome to spdlog!");
-  // cpr::Response r = cpr::Get(cpr::Url{"https://api.github.com/repos/whoshuu/cpr/contributors"},
-  //                            cpr::Authentication{"user", "pass", cpr::AuthMode::BASIC},
-  //                            cpr::Parameters{{"anon", "true"}, {"key", "value"}});
-  // r.status_code;                  // 200
-  // r.header["content-type"];       // application/json; charset=utf-8
-  // r.text;                         // JSON text string
-  // spdlog::info(r.text);
-  isRunning = true;
-  return isRunning;
+  DB::initialize({ .path = config.system_path });
+  User::initialize();
+
+  auto users = User::getAll();
+
+  for (int i = 0; i < 100; i++) {
+    User a = {
+      .username= "Pityu",
+      .last_sync = 123,
+      .last_boot = 123,
+      ._id = object_id().generate()
+    };
+    User::create(a);
+  }
+
+  for (auto user: users) {
+    std::string useranem = user.username;
+    spdlog::info("AppCore user: {}", useranem);
+  }
+
+  if (!s_instance) {
+    s_instance = std::shared_ptr<AppCore>(new AppCore());
+    CONFIG = config;
+  }
 }
 
-// Shutdown method
-void AppCore::shutdown() {
-  std::cout << "Shutting down application..." << std::endl;
-  isRunning = false;
+AppCore AppCore::instance() {
+  if (!s_instance) {
+    spdlog::error("AppCore: AppCore::initialize must be called before AppCore::instance.");
+    throw std::runtime_error("AppCore: AppCore::initialize must be called before AppCore::instance.");
+  }
+  return *s_instance.get();
 }
 
-// Event handling
-void AppCore::onEvent(const std::string& event) {
-  events.push_back(event);
-  std::cout << "Event triggered: " << event << std::endl;
+const std::string AppCore::string(const char* key, const char* value) const {
+  auto db = DB::instance();
+  std::string str;
+
+  if (value != NULL) {
+    db->KV->set(value, key);
+  }
+
+  db->KV->getString(key, str);
+
+  return str;
 }
 
-// Getter methods
-const std::string& AppCore::getAppName() const {
-  return appName;
-}
-
-const std::string& AppCore::getVersion() const {
-  return version;
-}
-
-bool AppCore::isAppRunning() const {
-  return isRunning;
-}
+CREATE_GET_SET_FUNC(float, Float)
+CREATE_GET_SET_FUNC(bool, Bool)
+CREATE_GET_SET_FUNC(int32_t, Int32)
+CREATE_GET_SET_FUNC(int64_t, Int64)
+CREATE_GET_SET_FUNC(uint32_t, UInt32)
+CREATE_GET_SET_FUNC(uint64_t, UInt64)
+CREATE_GET_SET_FUNC(double, Double)

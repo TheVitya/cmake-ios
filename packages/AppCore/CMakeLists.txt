@@ -11,16 +11,17 @@ PROJECT("${MODULE_NAME}")
 
 set(SOURCES
   ${CMAKE_CURRENT_LIST_DIR}/cpp/src/AppCore.cpp
-  # ${CMAKE_CURRENT_LIST_DIR}/cpp/src/AppCore/database/schemas/user.cpp
-  ${CMAKE_CURRENT_LIST_DIR}/cpp/src/database/base.cpp
   ${CMAKE_CURRENT_LIST_DIR}/cpp/src/database/db.cpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/src/database/schemas/user.cpp
 )
 
 set(HEADERS
   ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/AppCore.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/schemas/user.hpp
-  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/base.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/macros.hpp
   ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/db.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/base.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/schemas.hpp
+  ${CMAKE_CURRENT_LIST_DIR}/cpp/include/AppCore/database/schemas/user.hpp
 )
 
 add_library("${MODULE_NAME}" SHARED ${HEADERS} ${SOURCES})

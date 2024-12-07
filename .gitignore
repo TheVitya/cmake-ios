@@ -4,4 +4,6 @@ Pods
 .DS_Store
 .cxx
 _deps
+.cache
+executables
 # bin

@@ -1,33 +1,41 @@
 #pragma once
 
+#include <cstddef>
 #include <string>
-#include <vector>
+
+#define CREATE_GET_SET_FUNC(TYPE) \
+const TYPE get_##TYPE(const char* key, const TYPE default_value) const; \
+const TYPE set_##TYPE(const char* key, const TYPE value) const;
+
+struct AppCoreConfig {
+  const char* system_path;
+};
+
+static AppCoreConfig core_default_config = {
+  .system_path = "./"
+};
 
 class AppCore {
 public:
-  // Constructor & Destructor
-  AppCore(const char* path);
-  ~AppCore();
+  AppCore() = default;
+  AppCore& operator=(AppCore const&) = delete;
 
-  // Initialization and shutdown methods
-  bool initialize();
-  void shutdown();
+  static AppCore instance();
 
-  // Event system
-  void onEvent(const std::string& event);
+  static void initialize(AppCoreConfig config = core_default_config);
 
-  // Getter methods
-  const std::string& getAppName() const;
-  const std::string& getVersion() const;
-  bool isAppRunning() const;
+  const std::string string(const char* key, const char* value = NULL) const;
+
+  CREATE_GET_SET_FUNC(float)
+  CREATE_GET_SET_FUNC(bool)
+  CREATE_GET_SET_FUNC(int32_t)
+  CREATE_GET_SET_FUNC(int64_t)
+  CREATE_GET_SET_FUNC(uint32_t)
+  CREATE_GET_SET_FUNC(uint64_t)
+  CREATE_GET_SET_FUNC(double)
 
 private:
-  // Fields
-  std::string appName;
-  std::string version;
-  std::string system_path;
-  bool isRunning;
-
-  // Event list
-  std::vector<std::string> events;
+  static std::shared_ptr<AppCore> s_instance;
+  static AppCoreConfig CONFIG;
 };
+
