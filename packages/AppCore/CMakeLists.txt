@@ -33,7 +33,10 @@ target_include_directories("${MODULE_NAME}"
         ${CMAKE_CURRENT_LIST_DIR}/cpp/src
 )
 
+### DEPENDENCIES
+
 include(FetchContent)
+
 FetchContent_Declare(
         mmkv
         GIT_REPOSITORY https://github.com/Tencent/MMKV.git
@@ -49,11 +52,6 @@ FetchContent_Declare(
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
         GIT_TAG        v1.15.0
 )
-# FetchContent_Declare(
-#         cpr
-#         GIT_REPOSITORY https://github.com/libcpr/cpr.git
-#         GIT_TAG bb01c8db702fb41e5497aee9c0559ddf4bf13749
-# )
 
 FetchContent_GetProperties(mmkv)
 if(NOT mmkv_POPULATED)
@@ -64,6 +62,8 @@ endif()
 FetchContent_MakeAvailable(spdlog cpprealm)
 
 target_link_libraries("${MODULE_NAME}" spdlog::spdlog cpprealm core)
+
+###
 
 if(BUILD_TARGET STREQUAL "EXECUTABLE")
   include("${CMAKE_FOLDER}/executable.cmake")

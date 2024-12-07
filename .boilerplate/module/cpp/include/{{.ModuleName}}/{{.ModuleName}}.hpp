@@ -1,32 +1,14 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
 class {{.ModuleName}} {
 public:
-  // Constructor & Destructor
-  {{.ModuleName}}();
-  ~{{.ModuleName}}();
+  {{.ModuleName}}() = default;
+  {{.ModuleName}}& operator=({{.ModuleName}} const&) = delete;
 
-  // Initialization and shutdown methods
-  bool initialize();
-  void shutdown();
+  static std::shared_ptr<{{.ModuleName}}> instance();
 
-  // Event system
-  void onEvent(const std::string& event);
-
-  // Getter methods
-  const std::string& getAppName() const;
-  const std::string& getVersion() const;
-  bool isAppRunning() const;
+  static void initialize();
 
 private:
-  // Fields
-  std::string appName;
-  std::string version;
-  bool isRunning;
-
-  // Event list
-  std::vector<std::string> events;
+  static std::shared_ptr<{{.ModuleName}}> s_instance;
 };

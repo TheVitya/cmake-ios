@@ -33,7 +33,7 @@ copy_modules() {
 
     if [ -d "$output_dir" ]; then
         mkdir -p "$output_dir/Modules"
-        cp -r module.modulemap "$output_dir/Modules/"
+        cp -r $MODULEMAP_PATH "$output_dir/Modules/"
     fi
 }
 

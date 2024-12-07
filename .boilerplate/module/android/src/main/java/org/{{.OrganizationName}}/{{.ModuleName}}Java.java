@@ -5,5 +5,5 @@ public class {{.ModuleName}}Java {
         System.loadLibrary("{{.ModuleName}}");
     }
 
-    public native void test();
+    public native void initialize();
 }
