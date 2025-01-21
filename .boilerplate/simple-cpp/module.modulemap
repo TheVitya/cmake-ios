@@ -1,0 +1,6 @@
+framework module {{.ModuleName}}Framework {
+ umbrella header "{{.ModuleName}}.hpp"
+
+ export *
+ module * { export * }
+}

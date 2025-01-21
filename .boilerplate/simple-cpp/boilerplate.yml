@@ -1,0 +1,8 @@
+variables:
+  - name: ModuleName
+    description: Enter the name of the module
+    type: string
+
+  - name: OrganizationName
+    description: Enter the android organization name
+    type: string
