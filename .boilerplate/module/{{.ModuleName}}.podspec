@@ -7,9 +7,9 @@ Pod::Spec.new do |s|
   s.authors      = "{{.ModuleName}}"
   s.source       = { :path => "." }
 
-  s.platforms = { :ios => "8.0", :osx => "10.9", :watchos => "2.0", :tvos => "9.0" }
+  s.platforms = { :ios => "11.0", :osx => "10.9", :watchos => "2.0", :tvos => "9.0" }
 
-  s.vendored_frameworks = "{{.FrameworkName}}.xcframework"
+  s.vendored_frameworks = "{{.ModuleName}}Framework.xcframework"
 
   s.source_files = [
     "ios/**/*.{h,m,mm,swift}",

@@ -3,10 +3,6 @@ variables:
     description: Enter the name of the module
     type: string
 
-  - name: FrameworkName
-    description: Enter the iOS framework name
-    type: string
-
   - name: OrganizationName
     description: Enter the android organization name
     type: string

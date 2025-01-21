@@ -1,0 +1,9 @@
+[package]
+name = "{{.ModuleName}}_rust"
+edition = "2021"
+
+[dependencies]
+cxx = "1.0"
+
+[lib]
+crate-type = ["staticlib"] # TODO: change to dynamic when fixed in corrosion

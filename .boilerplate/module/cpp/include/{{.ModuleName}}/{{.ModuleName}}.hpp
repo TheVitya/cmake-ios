@@ -14,3 +14,5 @@ public:
 private:
   static std::shared_ptr<{{.ModuleName}}> s_instance;
 };
+
+void c_fn();

@@ -42,6 +42,29 @@ target_include_directories("${MODULE_NAME}"
 
 ###
 
+### RUST SUPPORT
+
+include(FetchContent)
+
+FetchContent_Declare(
+    Corrosion
+    GIT_REPOSITORY https://github.com/TheVitya/corrosion.git
+)
+FetchContent_MakeAvailable(Corrosion)
+
+corrosion_import_crate(MANIFEST_PATH ${CMAKE_CURRENT_LIST_DIR}/rust/Cargo.toml)
+
+# {{.ModuleName}}Rust should be dynamic
+corrosion_add_cxxbridge({{.ModuleName}}Rust
+        CRATE {{.ModuleName}}_rust # the name of the package inside Cargo.toml, cannot be the same as the target 
+        FILES lib.rs
+)
+target_include_directories({{.ModuleName}}Rust PRIVATE "cpp/include")
+
+target_link_libraries("${MODULE_NAME}" {{.ModuleName}}Rust)
+
+###
+
 if(BUILD_TARGET STREQUAL "EXECUTABLE")
   include("${CMAKE_FOLDER}/executable.cmake")
 elseif(BUILD_TARGET STREQUAL "IOS")
